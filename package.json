@@ -1,0 +1,20 @@
+{
+  "name": "Backbone.Observe",
+  "version": "0.1.0",
+  "description": "Backbone model implement which support observe features via Object.observe or Object.prototype.watch etc.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xch89820/Backbone.Observe"
+  },
+  "homepage": "https://github.com/xch89820/Backbone.Observe",
+  "dependencies": {
+    "observed": "~1.1.0"
+  },
+  "keywords": [
+    "Backbone",
+    "Object.observe",
+    "watch"
+  ],
+  "author": "Jone Casper",
+  "license": "MIT"
+}
