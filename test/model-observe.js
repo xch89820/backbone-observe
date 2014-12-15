@@ -22,6 +22,8 @@
         }
     });
 
+    var _start = start;
+    var _stop = stop;
     if (!Backbone.ObserveModel.prototype.supportOO || Backbone.ObserveModel.prototype.ooVersion.ow === true){
         start = function(){};
         stop = function(){};
@@ -356,13 +358,12 @@
         equal(model.get('id'), 'eye-dee');
         equal(model.id, 25);
         equal(model.isNew(), false);
-        model.unset('_id', {
-            callback: function(){
-                start();
-                equal(model.id, undefined);
-                equal(model.isNew(), true);
-            }
+        model.on("change:_id", function(){
+            start();
+            equal(model.id, undefined);
+            equal(model.isNew(), true);
         });
+        model.unset('_id');
         stop();
     });
 
@@ -473,16 +474,20 @@
         stop();
     });
 
-    test("change after initialize", 2, function () {
+    test("change after initialize", 1, function () {
         var changed = 0;
         var attrs = {id: 1, label: 'c'};
         var obj = new Backbone.ObserveModel(attrs);
-        obj.on('change', function() { changed += 1; });
-        obj.set(attrs, {
-            callback: function(){
-                equal(changed, 0);
-            }
+        obj.on('change', function() {
+            changed += 1;
         });
+        obj.set(attrs);
+        _stop();
+        // Any good idea to test it??
+        setTimeout(function(){
+            _start();
+            equal(changed, 0);
+        }, 1000);
     });
 
     test("save within change event", 1, function () {
@@ -615,23 +620,80 @@
         model.on('invalid', function (model, error) {
             lastError = error;
         });
-        var result = model.set({a: 100}, {
-            callback: function(){
+        model.on("change:a", function(){
+            start();
+            equal(model.get('a'), 100);
+            equal(lastError, undefined);
+            model.off("change:a");
+            model.on("change", function(){
                 start();
+                equal(lastError, "Can't change admin status.");
                 equal(model.get('a'), 100);
-                equal(lastError, undefined);
-
-                var result3 = model.set({a: 200, admin: false}, {
-                    validate: true,
-                    callback: function(){
-                        equal(lastError, "Can't change admin status.");
-                        equal(result, false);
-                        equal(model.get('a'), 100);
-                    }
-                });
-            }
+            });
+            model.set({a: 200, admin: false}, {validate:true});
+            stop();
         });
+        model.set({a:100});
         stop();
     });
+
+    /*test("validate on unset and clear", function() {
+        var error;
+        var model = new Backbone.Model({name: "One"});
+        model.validate = function(attrs) {
+            if (!attrs.name) {
+                error = true;
+                return "No thanks.";
+            }
+        };
+        model.on("change:name", function(){
+            start();
+            equal(model.get('name'), 'Two');
+            equal(error, undefined);
+            model.on("invalid", function(){
+                equal(error, true);
+                equal(model.get('name'), 'Two');
+                model.off("change:name");
+                model.on("change", function(){
+                    start();
+                    equal(model.get('name'), undefined);
+                });
+                delete model.validate;
+                model.clear();
+                stop();
+            });
+            model.unset('name', {validate: true});
+        });
+        model.set({name: "Two"});
+        stop();
+    });
+
+    test("validate with error callback", function() {
+        var lastError, boundError;
+        var model = new Backbone.Model();
+        model.validate = function(attrs) {
+            if (attrs.admin) return "Can't change admin status.";
+        };
+        model.on('invalid', function(model, error) {
+            boundError = true;
+        });
+        model.on("change:a", function(){
+            start();
+            equal(model.get('a'), 100);
+            equal(model.validationError, null);
+            equal(boundError, undefined);
+            model.off("change:a");
+            model.on("change", function(){
+                start();
+                equal(model.get('a'), 100);
+                equal(model.validationError, "Can't change admin status.");
+                equal(boundError, true);
+            });
+            model.set({a: 200, admin: true}, {validate:true});
+            stop();
+        });
+        model.set({a: 100}, {validate:true});
+        stop();
+    });*/
 
 })();

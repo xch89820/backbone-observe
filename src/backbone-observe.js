@@ -50,6 +50,7 @@
             oo:isSupportOO,
             ow:isSupportOW
         },
+        // Overwrite the initialize
         initialize: function(){
             // We watch on the attributes in initialize
             var me = this;
@@ -87,16 +88,14 @@
             return newval;
         },
         // Overwrite the set function
-        // The OO's set ONLY change model's attribute and exit.
-        // We add an useful parameter 'callback' in options if you want to listen observe return when you set a property.
-        // The options.callback have four arguments: name(the attr's name), val(the new value), old(the old value), change(changed by observe offered), options
+        // The observe function will be invoke ONLY some changing has happened, so we should determine whether they are equal.
         set: function(key, val, options) {
             if (!this.watched || (!isSupportOO && !isSupportOW) ){
-                //If not support OO, run the Backbone.Model.set
+                // If not support OO, run the Backbone.Model.set
                 return Backbone.Model.prototype.set.apply(this, arguments);
             }
 
-            var attr, attrs, unset, current, callback, chinging, me = this;
+            var attr, attrs, unset, current, chinging, me = this;
             if (key == null) return this;
 
             // Handle both `"key", value` and `{key: value}` -style arguments.
@@ -113,7 +112,6 @@
             if (!this._validate(attrs, options)) return false;
 
             unset = options.unset;
-            callback = options.callback;
             current = this.attributes;
             //Lock to change
             chinging = this._changing;
@@ -130,23 +128,18 @@
             for (attr in attrs) {
                 val = attrs[attr];
 
-                // If it is a same value, oo will not be triggered.
+                // If the value is equaled to current value, observe function will not be triggered.
                 if (_.isEqual(current[attr], val)) {
                     // Compare with previous value
                     //this._setChanged(attr, val);
-
-                    if (callback){
-                        callback.call(this, attr, val, null, null, options);
-                    }
                     continue;
                 }
-                // Push the options to queue
+                // Push the options to queue to save current status
                 this.ooFIFOQueue.push({
                     previousAttributes: this._previousAttributes,
                     options: options,
                     snapshot: val
                 });
-
                 // Add watch handler if browser support object.prototype.watch
                 if (isSupportOW && !unset){
                     this.attributes.watch(attr ,function(){
@@ -156,22 +149,14 @@
 
                 unset ? delete current[attr] : current[attr] = val;
 
+                // For support Object.prototype.watch
                 if (isSupportOW){
-                    // object.prototype.watch not deal with "delete", so we should invoke it by our self
+                    // Object.prototype.watch not deal with "delete", so we should invoke it by our self
                     if (unset){
                         me._watchHandler.call(me, attr, val, undefined, options, "delete");
                     }
                     if (!options.silent){
                         this.trigger('change:' + attr, this, val, options);
-                    }
-                    if (callback){
-                        var prev = me.previous(attr);
-                        callback.call(this, attr, val, prev, {
-                            name: attr,
-                            type: "change",
-                            oldValue: prev,
-                            object: current
-                        }, options);
                     }
                 }
             }
@@ -190,7 +175,7 @@
         },
         // Deal with the change of attributes
         observe: function(changes){
-            var args, options, prev, silent, changing, change, name, type, old, val, callback;
+            var args, options, prev, silent, changing, change, name, type, old, val;
 
             changing        = this._changing;
 
@@ -208,7 +193,6 @@
                 options = args.options || {};
 
                 silent = options.silent;
-                callback = options.callback;
                 this._pending = options;
 
                 // Compare with previous value
@@ -217,10 +201,6 @@
                 if (!isSupportOW && (type !== 'delete' || !_.isUndefined(old))) {
                     if (!silent) {
                         this.trigger('change:' + name, this, val, options);
-                    }
-                    // Call the options.callback
-                    if (callback){
-                        callback.call(this, name, val, old, change, options);
                     }
                 }else if (isSupportOW){
                     // Unwatch the property
