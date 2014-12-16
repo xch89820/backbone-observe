@@ -7,13 +7,13 @@
     "url": "https://github.com/xch89820/Backbone.Observe"
   },
   "homepage": "https://github.com/xch89820/Backbone.Observe",
-  "dependencies": {
-    "observed": "~1.1.0"
-  },
+  "dependencies": [
+    "backbone",
+    "underscore"
+  ],
   "keywords": [
     "Backbone",
-    "Object.observe",
-    "watch"
+    "Object.observe"
   ],
   "author": "Jone Casper",
   "license": "MIT"

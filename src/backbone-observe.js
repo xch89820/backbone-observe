@@ -4,35 +4,27 @@
 
     // Set up Backbone appropriately for the environment. Start with AMD.
     if (typeof define === 'function' && define.amd) {
-        define(['backbone'], function(Backbone) {
+        define(['backbone', 'underscore'], function(Backbone) {
             // Export global even in AMD case in case this script is loaded with
             // others that may still expect a global Backbone.
-            root.Backbone.ObserveModel = factory(root, Backbone);
+            root.Backbone.ObserveModel = factory(root, Backbone, _);
         });
         // Next for Node.js or CommonJS
     } else if (typeof exports !== 'undefined') {
-        var Backbone = require('backbone');
-        factory(root, Backbone);
+        var Backbone = require('backbone'),
+            _ = require('underscore');
+        exports.model = factory(root, Backbone, _);
     } else {
-        root.Backbone.ObserveModel = factory(root, root.Backbone);
+        root.Backbone.ObserveModel = factory(root, root.Backbone, root._);
     }
 
-}(this, function(root, Backbone) {
+}(this, function(root, Backbone, _) {
     // Detect Object.observe
     // If not support OO, we will detect of Object.prototype.watch(OW)[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/watch] exists
     // If not support OW, we will try to require observed library if exist in Node.js
     var OO = Object.observe,
         OW = {}.watch;
-    var isSupportOO, isSupportOW = !!OW;
-    if (!OO && !isSupportOW){
-        //try to require library "observed"(https://github.com/aheckmann/observed)
-        try{
-            OO = require('observed');
-        }catch(e){
-            console.log("The environment not support Object.observe.");
-        }
-    }
-    isSupportOO = !!OO;
+    var isSupportOO = !!OO, isSupportOW = !!OW;
 
     // BackboneObserve.Model
     // --------------
@@ -225,7 +217,7 @@
             return this;
         }
     });
+    BooModel.version = "1.0.0";
 
     return BooModel;
-
 }));
