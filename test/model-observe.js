@@ -1,7 +1,7 @@
 (function() {
 
     // Copy from Backbone.model's test
-    var proxy = Backbone.ObserveModel.extend();
+    var proxy = Backbone.Observe.model.extend();
     var klass = Backbone.Collection.extend({
         url: function () {
             return '/collection';
@@ -9,7 +9,7 @@
     });
     var doc, collection;
 
-    module("Backbone.ObserveModel", {
+    module("Backbone.Observe.model", {
         setup: function () {
             doc = new proxy({
                 id: '1-the-tempest',
@@ -24,16 +24,16 @@
 
     var _start = start;
     var _stop = stop;
-    if (!Backbone.ObserveModel.prototype.supportOO || Backbone.ObserveModel.prototype.ooVersion.ow === true){
+    if (!Backbone.Observe.model.prototype.supportOO || Backbone.Observe.model.prototype.ooVersion.ow === true){
         start = function(){};
         stop = function(){};
     }
 
     test("initialize", 3, function() {
-        var Model = Backbone.ObserveModel.extend({
+        var Model = Backbone.Observe.model.extend({
             initialize: function() {
                 this.one = 1;
-                Backbone.ObserveModel.prototype.initialize.apply(this, arguments);
+                Backbone.Observe.model.prototype.initialize.apply(this, arguments);
                 equal(this.collection, collection);
             }
         });
@@ -43,10 +43,10 @@
     });
 
     test("initialize with attributes and options", 1, function() {
-        var Model = Backbone.ObserveModel.extend({
+        var Model = Backbone.Observe.model.extend({
             initialize: function(attributes, options) {
                 this.one = options.one;
-                Backbone.ObserveModel.prototype.initialize.apply(this, arguments);
+                Backbone.Observe.model.prototype.initialize.apply(this, arguments);
             }
         });
         var model = new Model({}, {one: 1});
@@ -54,7 +54,7 @@
     });
 
     test("initialize with parsed attributes", 1, function() {
-        var Model = Backbone.ObserveModel.extend({
+        var Model = Backbone.Observe.model.extend({
             parse: function(attrs) {
                 attrs.value += 1;
                 return attrs;
@@ -65,7 +65,7 @@
     });
 
     test("initialize with defaults", 2, function() {
-        var Model = Backbone.ObserveModel.extend({
+        var Model = Backbone.Observe.model.extend({
             defaults: {
                 first_name: 'Unknown',
                 last_name: 'Unknown'
@@ -77,7 +77,7 @@
     });
 
     test("parse can return null", 1, function() {
-        var Model = Backbone.ObserveModel.extend({
+        var Model = Backbone.Observe.model.extend({
             parse: function(attrs) {
                 attrs.value += 1;
                 return null;
@@ -98,7 +98,7 @@
     });
 
     test("url when using urlRoot, and uri encoding", 2, function() {
-        var Model = Backbone.ObserveModel.extend({
+        var Model = Backbone.Observe.model.extend({
             urlRoot: '/collection'
         });
         var model = new Model();
@@ -108,7 +108,7 @@
     });
 
     test("url when using urlRoot as a function to determine urlRoot at runtime", 2, function() {
-        var Model = Backbone.ObserveModel.extend({
+        var Model = Backbone.Observe.model.extend({
             urlRoot: function() {
                 return '/nested/' + this.get('parent_id') + '/collection';
             }
@@ -121,7 +121,7 @@
     });
 
     test("underscore methods", 5, function() {
-        var model = new Backbone.ObserveModel({ 'foo': 'a', 'bar': 'b', 'baz': 'c' });
+        var model = new Backbone.Observe.model({ 'foo': 'a', 'bar': 'b', 'baz': 'c' });
         var model2 = model.clone();
         deepEqual(model.keys(), ['foo', 'bar', 'baz']);
         deepEqual(model.values(), ['a', 'b', 'c']);
@@ -131,12 +131,12 @@
     });
 
     test("chain", function() {
-        var model = new Backbone.ObserveModel({ a: 0, b: 1, c: 2 });
+        var model = new Backbone.Observe.model({ a: 0, b: 1, c: 2 });
         deepEqual(model.chain().pick("a", "b", "c").values().compact().value(), [1, 2]);
     });
 
     test("clone", 10, function() {
-        var a = new Backbone.ObserveModel({ 'foo': 1, 'bar': 2, 'baz': 3});
+        var a = new Backbone.Observe.model({ 'foo': 1, 'bar': 2, 'baz': 3});
         var b = a.clone();
         equal(a.get('foo'), 1);
         equal(a.get('bar'), 2);
@@ -148,23 +148,23 @@
         equal(a.get('foo'), 100);
         equal(b.get('foo'), 1, "Changing a parent attribute does not change the clone.");
 
-        var foo = new Backbone.ObserveModel({p: 1});
-        var bar = new Backbone.ObserveModel({p: 2});
+        var foo = new Backbone.Observe.model({p: 1});
+        var bar = new Backbone.Observe.model({p: 2});
         bar.set(foo.clone().attributes, {unset: true});
         equal(foo.get('p'), 1);
         equal(bar.get('p'), undefined);
     });
 
     test("isNew", 6, function() {
-        var a = new Backbone.ObserveModel({ 'foo': 1, 'bar': 2, 'baz': 3});
+        var a = new Backbone.Observe.model({ 'foo': 1, 'bar': 2, 'baz': 3});
         ok(a.isNew(), "it should be new");
-        a = new Backbone.ObserveModel({ 'foo': 1, 'bar': 2, 'baz': 3, 'id': -5 });
+        a = new Backbone.Observe.model({ 'foo': 1, 'bar': 2, 'baz': 3, 'id': -5 });
         ok(!a.isNew(), "any defined ID is legal, negative or positive");
-        a = new Backbone.ObserveModel({ 'foo': 1, 'bar': 2, 'baz': 3, 'id': 0 });
+        a = new Backbone.Observe.model({ 'foo': 1, 'bar': 2, 'baz': 3, 'id': 0 });
         ok(!a.isNew(), "any defined ID is legal, including zero");
-        ok( new Backbone.ObserveModel({          }).isNew(), "is true when there is no id");
-        ok(!new Backbone.ObserveModel({ 'id': 2  }).isNew(), "is false for a positive integer");
-        ok(!new Backbone.ObserveModel({ 'id': -5 }).isNew(), "is false for a negative integer");
+        ok( new Backbone.Observe.model({          }).isNew(), "is true when there is no id");
+        ok(!new Backbone.Observe.model({ 'id': 2  }).isNew(), "is false for a positive integer");
+        ok(!new Backbone.Observe.model({ 'id': -5 }).isNew(), "is false for a negative integer");
     });
 
     test("get", 2, function() {
@@ -185,7 +185,7 @@
     });
 
     test("has", 10, function() {
-        var model = new Backbone.ObserveModel();
+        var model = new Backbone.Observe.model();
 
         strictEqual(model.has('name'), false);
 
@@ -215,7 +215,7 @@
     });
 
     test("set", function() {
-        var a = new Backbone.ObserveModel({id: 'id', foo: 1, bar: 2, baz: 3});
+        var a = new Backbone.Observe.model({id: 'id', foo: 1, bar: 2, baz: 3});
         var changeCount = 0;
 
         a.on("change:foo", function() { changeCount += 1;});
@@ -230,7 +230,7 @@
     });
 
     test("unset", function() {
-        var a = new Backbone.ObserveModel({id: 'id', foo: 1, bar: 2, baz: 3});
+        var a = new Backbone.Observe.model({id: 'id', foo: 1, bar: 2, baz: 3});
         a.validate = function(attrs) {
             equal(attrs.baz, void 0, "validate:true passed while unsetting");
         };
@@ -245,7 +245,7 @@
     });
 
     test("nested set triggers with the correct options", function() {
-        var model = new Backbone.ObserveModel();
+        var model = new Backbone.Observe.model();
         var o1 = {};
         var o2 = {};
         var o3 = {};
@@ -271,7 +271,7 @@
 
     test("#2030 - set with failed validate, followed by another set triggers change", function () {
         var attr = 0, main = 0, error = 0;
-        var Model = Backbone.ObserveModel.extend({
+        var Model = Backbone.Observe.model.extend({
             validate: function (attr) {
                 if (attr.x > 1) {
                     error++;
@@ -296,7 +296,7 @@
 
     test("set triggers changes in the correct order", function() {
         var value = null;
-        var model = new Backbone.ObserveModel;
+        var model = new Backbone.Observe.model;
         model.on('last', function(){ value = 'last'; });
         model.on('first', function(){ value = 'first'; });
         model.trigger('first');
@@ -305,7 +305,7 @@
     });
 
     test("set falsy values in the correct order", 2, function() {
-        var model = new Backbone.ObserveModel({result: 'result'});
+        var model = new Backbone.Observe.model({result: 'result'});
         model.on('change', function() {
             start();
             equal(model.changed.result, void 0);
@@ -319,7 +319,7 @@
     });
 
     test("nested set triggers with the correct options", function() {
-        var model = new Backbone.ObserveModel();
+        var model = new Backbone.Observe.model();
         var o1 = {};
         var o2 = {};
         var o3 = {};
@@ -343,7 +343,7 @@
     });
 
     test("unset and changedAttributes", 1, function() {
-        var model = new Backbone.ObserveModel({a: 1});
+        var model = new Backbone.Observe.model({a: 1});
         model.on('change', function() {
             start();
             ok('a' in model.changedAttributes(), 'changedAttributes should contain unset properties');
@@ -353,7 +353,7 @@
     });
 
     test("using a non-default id attribute.", 5, function() {
-        var MongoModel = Backbone.ObserveModel.extend({idAttribute : '_id'});
+        var MongoModel = Backbone.Observe.model.extend({idAttribute : '_id'});
         var model = new MongoModel({id: 'eye-dee', _id: 25, title: 'Model'});
         equal(model.get('id'), 'eye-dee');
         equal(model.id, 25);
@@ -368,7 +368,7 @@
     });
 
     test("set an empty string", 1, function() {
-        var model = new Backbone.ObserveModel({name : "Model"});
+        var model = new Backbone.Observe.model({name : "Model"});
         model.on("change:name", function(){
             start();
             equal(model.get('name'), '');
@@ -378,7 +378,7 @@
     });
 
     test("setting an object", 1, function() {
-        var model = new Backbone.ObserveModel({
+        var model = new Backbone.Observe.model({
             custom: { foo: 1 }
         });
         model.on('change', function() {
@@ -396,7 +396,7 @@
 
     test("clear", 3, function() {
         var changed;
-        var model = new Backbone.ObserveModel({id: 1, name : "Model"});
+        var model = new Backbone.Observe.model({id: 1, name : "Model"});
         model.on("change:name", function(){ changed = true; });
         model.on("change", function() {
             start();
@@ -410,7 +410,7 @@
     });
 
     test("defaults", 4, function() {
-        var Defaulted = Backbone.ObserveModel.extend({
+        var Defaulted = Backbone.Observe.model.extend({
             defaults: {
                 "one": 1,
                 "two": 2
@@ -419,7 +419,7 @@
         var model = new Defaulted({two: undefined});
         equal(model.get('one'), 1);
         equal(model.get('two'), 2);
-        Defaulted = Backbone.ObserveModel.extend({
+        Defaulted = Backbone.Observe.model.extend({
             defaults: function() {
                 return {
                     "one": 3,
@@ -433,7 +433,7 @@
     });
 
     test("change, hasChanged, changedAttributes, previous, previousAttributes", 9, function() {
-        var model = new Backbone.ObserveModel({name: "Tim", age: 10});
+        var model = new Backbone.Observe.model({name: "Tim", age: 10});
         deepEqual(model.changedAttributes(), false);
         model.on('change:name', function() {
             start();
@@ -454,7 +454,7 @@
     });
 
     test("changedAttributes", 3, function() {
-        var model = new Backbone.ObserveModel({a: 'a', b: 'b'});
+        var model = new Backbone.Observe.model({a: 'a', b: 'b'});
         deepEqual(model.changedAttributes(), false);
         equal(model.changedAttributes({a: 'a'}), false);
         equal(model.changedAttributes({a: 'b'}).a, 'b');
@@ -462,7 +462,7 @@
 
     test("change with options", 1, function() {
         var value;
-        var model = new Backbone.ObserveModel({name: 'Rob'});
+        var model = new Backbone.Observe.model({name: 'Rob'});
         model.on('change:name', function(model, val, options) {
             value = options.prefix + model.get('name');
         });
@@ -477,7 +477,7 @@
     test("change after initialize", 1, function () {
         var changed = 0;
         var attrs = {id: 1, label: 'c'};
-        var obj = new Backbone.ObserveModel(attrs);
+        var obj = new Backbone.Observe.model(attrs);
         obj.on('change', function() {
             changed += 1;
         });
@@ -492,7 +492,7 @@
 
     test("save within change event", 1, function () {
         var env = this;
-        var model = new Backbone.ObserveModel({firstName : "Taylor", lastName: "Swift"});
+        var model = new Backbone.Observe.model({firstName : "Taylor", lastName: "Swift"});
         model.url = '/test';
         model.on('change', function () {
             start();
@@ -504,7 +504,7 @@
     });
 
     test("validate after save", 2, function () {
-        var lastError, model = new Backbone.ObserveModel();
+        var lastError, model = new Backbone.Observe.model();
         model.validate = function (attrs) {
             if (attrs.admin) return "Can't change admin status.";
         };
@@ -527,7 +527,7 @@
     });
 
     test("save, fetch, destroy triggers error event when an error occurs", 3, function () {
-        var model = new Backbone.ObserveModel();
+        var model = new Backbone.Observe.model();
         model.on('error', function () {
             ok(true);
         });
@@ -562,7 +562,7 @@
     });
 
     test("save in positional style", 1, function () {
-        var model = new Backbone.ObserveModel();
+        var model = new Backbone.Observe.model();
         model.sync = function (method, model, options) {
             options.success();
         };
@@ -571,7 +571,7 @@
     });
 
     test("save with non-object success response", 2, function () {
-        var model = new Backbone.ObserveModel();
+        var model = new Backbone.Observe.model();
         model.sync = function (method, model, options) {
             options.success('', options);
             options.success(null, options);
@@ -594,12 +594,12 @@
         equal(this.syncArgs.method, 'delete');
         ok(_.isEqual(this.syncArgs.model, doc));
 
-        var newModel = new Backbone.ObserveModel;
+        var newModel = new Backbone.Observe.model;
         equal(newModel.destroy(), false);
     });
 
     test("non-persisted destroy", 1, function () {
-        var a = new Backbone.ObserveModel({'foo': 1, 'bar': 2, 'baz': 3});
+        var a = new Backbone.Observe.model({'foo': 1, 'bar': 2, 'baz': 3});
         a.sync = function () {
             throw "should not be called";
         };
@@ -609,7 +609,7 @@
 
     test("validate", function () {
         var lastError;
-        var model = new Backbone.ObserveModel({
+        var model = new Backbone.Observe.model({
             default:{
                 admin:true
             }

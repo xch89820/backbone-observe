@@ -1,21 +1,26 @@
 // Backbone Observe 1.0.0
 
 (function(root, factory) {
-
     // Set up Backbone appropriately for the environment. Start with AMD.
     if (typeof define === 'function' && define.amd) {
         define(['backbone', 'underscore'], function(Backbone) {
             // Export global even in AMD case in case this script is loaded with
             // others that may still expect a global Backbone.
-            root.Backbone.ObserveModel = factory(root, Backbone, _);
+            if (!Backbone.Observe){
+                Backbone.Observe = {
+                    model: factory(root, Backbone, _)
+                };
+            }
         });
         // Next for Node.js or CommonJS
     } else if (typeof exports !== 'undefined') {
         var Backbone = require('backbone'),
             _ = require('underscore');
         exports.model = factory(root, Backbone, _);
-    } else {
-        root.Backbone.ObserveModel = factory(root, root.Backbone, root._);
+    } else if (!root.Backbone.Observe){
+        root.Backbone.Observe = {
+            model: factory(root, root.Backbone, root._)
+        };
     }
 
 }(this, function(root, Backbone, _) {
