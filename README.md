@@ -2,7 +2,7 @@
 
 ------
 
-A backbone extend which support Object.observe characteristic in chorme(up 36) and nodejs.
+A Backbone extend which make Backbone support Object.observe feature in browser and nodejs.
 
 ## What is Object.observe
 Object.observe(), part of a future ECMAScript standard, is a method for asynchronously observing changes to JavaScript objects without the need for a separate library. It allows an observer to receive a time-ordered sequence of change records which describe the set of changes which took place to a set of observed objects.
@@ -49,7 +49,7 @@ And then require the package in your code.
     </script>
 
 ## What's difference?
-If you use **Backbone.Observe** to make up your application, every thing are same as the basal model of Backbone except the changing of value is an "asynchronous" processing and the events trigger are not in order to because the Object.observer. It means that you can not expect the value has changed after you invoke the `set` or `unset` function.
+If you use **Backbone.Observe** to make up your application, every thing are same as the basal model of Backbone except the changing of value is an "asynchronous" processing and the events trigger are not in order to because the Object.observe. It means that you can not expect the value has changed after you invoke the `set` or `unset` function.
 Here is an example:
 
     var a = new Backbone.Observe.model({id: 'id', foo: 1, bar: 2, baz: 3});
@@ -82,10 +82,17 @@ As you see, the callback of change will be executed **before** the timeout callb
 If you not understand the event queue and the non-block I/O, you can see the follow documents.
 > * [Javascript event loop explained][2]
 > * [Events and timing in-depth][3]
-[1]: http://www.html5rocks.com/en/tutorials/es7/observe/?redirect_from_locale=zh
-[2]: http://blog.carbonfive.com/2013/10/27/the-javascript-event-loop-explained
-[3]: http://javascript.info/tutorial/events-and-timing-depth#javascript-is-single-threaded
+
+## Compatibility
+Now, the Google Chorme browser (version greater than 36) and the Chrome for Android has supported the Object.observe. You can check the [MDN][4] for more information.
+The object.prototype.watch are supported by the Fiefox but not recommend to use.
+The Node.js has supported the Object.observe in 0.11.13 but not publish to the standard version yet.
 
 ## Change Log
 ### v1.0.1
 Release the project
+
+[1]: http://www.html5rocks.com/en/tutorials/es7/observe/?redirect_from_locale=zh
+[2]: http://blog.carbonfive.com/2013/10/27/the-javascript-event-loop-explained
+[3]: http://javascript.info/tutorial/events-and-timing-depth#javascript-is-single-threaded
+[4]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe
