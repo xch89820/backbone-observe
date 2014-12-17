@@ -1,12 +1,12 @@
-# Backbone.Observer
+# Backbone.Observe
 
 ------
 
-A backbone extend which support Object.observer characteristic in chorme(up 36) and nodejs.
+A backbone extend which support Object.observe characteristic in chorme(up 36) and nodejs.
 
-## What is Object.observer
+## What is Object.observe
 Object.observe(), part of a future ECMAScript standard, is a method for asynchronously observing changes to JavaScript objects without the need for a separate library. It allows an observer to receive a time-ordered sequence of change records which describe the set of changes which took place to a set of observed objects.
-The Object.observer is a new technology which's going to change everything you think you know about data-binding. It’s also going to change how many of your MVC libraries approach observing models for edits and updates.
+The Object.observe is a new technology which's going to change everything you think you know about data-binding. It’s also going to change how many of your MVC libraries approach observing models for edits and updates.
 
 You can get more information in this [article][1].
 
