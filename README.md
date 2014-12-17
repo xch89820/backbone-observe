@@ -87,5 +87,5 @@ If you not understand the event queue and the non-block I/O, you can see the fol
 [3]: http://javascript.info/tutorial/events-and-timing-depth#javascript-is-single-threaded
 
 ## Change Log
-### v1.0.0
+### v1.0.1
 Release the project
