@@ -89,7 +89,7 @@ The object.prototype.watch are supported by the Fiefox but not recommend to use.
 The Node.js has supported the Object.observe in 0.11.13 but not publish to the standard version yet.
 
 ## Change Log
-### v1.0.1
+### v1.0.2
 Release the project
 
 [1]: http://www.html5rocks.com/en/tutorials/es7/observe/?redirect_from_locale=zh

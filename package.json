@@ -1,6 +1,6 @@
 {
   "name": "backbone.observe",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Backbone model implement which support observe features via Object.observe or Object.prototype.watch etc.",
   "repository": {
     "type": "git",
