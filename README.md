@@ -84,9 +84,9 @@ If you not understand the event queue and the non-block I/O, you can see the fol
 > * [Events and timing in-depth][3]
 
 ## Compatibility
-Now, the Google Chorme browser (version greater than 36) and the Chrome for Android has supported the Object.observe. You can check the [MDN][4] for more information.
-The object.prototype.watch are supported by the Fiefox but not recommend to use.
-The Node.js has supported the Object.observe in 0.11.13 but not publish to the standard version yet.
+* Now, the Google Chorme browser (version greater than 36) and the Chrome for Android has supported the Object.observe. You can check the [MDN][4] for more information.
+* The object.prototype.watch are supported by the Fiefox but not recommend to use.
+* The Node.js has supported the Object.observe in 0.11.13 but not publish to the standard version yet.
 
 ## Change Log
 ### v1.0.2
