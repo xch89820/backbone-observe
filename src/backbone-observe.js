@@ -1,4 +1,4 @@
-// Backbone Observe 1.0.0
+// backbone-observe 1.0.2
 
 (function(root, factory) {
     // Set up Backbone appropriately for the environment. Start with AMD.

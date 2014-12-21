@@ -1,5 +1,5 @@
 {
-  "name": "backbone.observe",
+  "name": "backbone-observe",
   "version": "1.0.2",
   "description": "Backbone model implement which support observe features via Object.observe or Object.prototype.watch etc.",
   "repository": {
@@ -10,6 +10,9 @@
   "dependencies": [
     "backbone",
     "underscore"
+  ],
+  "devDependencies":[
+    "benchmark"
   ],
   "main": "src/backbone-observe.js",
   "keywords": [

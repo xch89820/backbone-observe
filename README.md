@@ -1,4 +1,4 @@
-# Backbone.Observe
+# backbone-observe
 
 ------
 
@@ -14,11 +14,11 @@ You can get more information in this [article][1].
 ### Node.js
 Available in Node >= 0.11.13, the standards compliant Object.observe treasure resides.
 
-    npm install backbone.observe -g
+    npm install backbone-observe -g
 
 And then require the package in your code.
 
-    var BackboneObserve = require("backbone.observe");
+    var BackboneObserve = require("backbone-observe");
     var om = new BackboneObserve.model({id: 'id', foo: 1, bar: 2, baz: 3});
 
 ### AMD
@@ -26,12 +26,12 @@ And then require the package in your code.
         path :{
             backbone : "you/backbone/path",
             underscore : "you/underscore/path",
-            "backbone.observe" : "you/backbone.observe/path"
+            "backbone-observe" : "you/backbone-observe/path"
             //...code...
         }
     });
 
-    require(["backbone.observe"], function(BackboneObserve){
+    require(["backbone-observe"], function(BackboneObserve){
         var ooModel = BackboneObserve.model;
         //...code...
     });
@@ -40,7 +40,7 @@ And then require the package in your code.
     <!-- Import backbone -->
     <script type="text/javascript" src="underscore.min.js"></script>
     <script type="text/javascript" src="backbone.min.js"></script>
-    <!-- Import Backbone.Observe -->
+    <!-- Import Backbone-Observe -->
     <script type="text/javascript" src="backbone-observe.js"></script>
 
     <script type="text/javascript">
@@ -49,7 +49,7 @@ And then require the package in your code.
     </script>
 
 ## What's difference?
-If you use **Backbone.Observe** to make up your application, every thing are same as the basal model of Backbone except the changing of value is an "asynchronous" processing and the events trigger are not in order to because the Object.observe. It means that you can not expect the value has changed after you invoke the `set` or `unset` function.
+If you use **backbone-observe** to make up your application, every thing are same as the basal model of Backbone except the changing of value is an "asynchronous" processing and the events trigger are not in order to because the Object.observe. It means that you can not expect the value has changed after you invoke the `set` or `unset` function.
 Here is an example:
 
     var a = new Backbone.Observe.model({id: 'id', foo: 1, bar: 2, baz: 3});
