@@ -98,7 +98,7 @@ The follow is one test result in our computer:
     Backbone.unset#test x 74,966 ops/sec ±1.95% (80 runs sampled)
     Backbone.observe.set#test x 90,667 ops/sec ±2.77% (75 runs sampled)
     Fastest is Backbone.observe.set#test
-    Fastest is Backbone.observe.set#test
+    Fastest is Backbone.observe.unset#test
 
 You can run the `node-benchmark.js` in test directory if you want to run benchmark in node.js.
 

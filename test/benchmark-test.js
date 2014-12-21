@@ -42,7 +42,7 @@
         setup: function () {
             var backboneModel = new Backbone.Model({"foo": 2});
         }
-    }).add('Backbone.observe.set#test', function () {
+    }).add('Backbone.observe.unset#test', function () {
         backboneOberveModel.on("change:foo", function () {
             if (typeof this.get("foo") !== "undefined") {
                 throw("Backbone.observe.set: Unset failed!!");
