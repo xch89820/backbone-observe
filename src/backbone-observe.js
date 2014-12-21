@@ -1,4 +1,4 @@
-// backbone-observe 1.0.2
+// backbone-observe v1.0.3
 
 (function(root, factory) {
     // Set up Backbone appropriately for the environment. Start with AMD.
@@ -195,7 +195,7 @@
                 // Compare with previous value
                 this._setChanged(name, val, prev);
 
-                if (!isSupportOW && (type !== 'delete' || !_.isUndefined(old))) {
+                if (!isSupportOW && !_.isUndefined(old)) {
                     if (!silent) {
                         this.trigger('change:' + name, this, val, options);
                     }

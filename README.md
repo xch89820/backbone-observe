@@ -84,11 +84,28 @@ If you not understand the event queue and the non-block I/O, you can see the fol
 > * [Events and timing in-depth][3]
 
 ## Compatibility
-* Now, the Google Chorme browser (version greater than 36) and the Chrome for Android has supported the Object.observe. You can check the [MDN][4] for more information.
+* Now the Google Chrome browser (version greater than 36) and the Chrome for Android has supported the Object.observe. You can check the [MDN][4] for more information.
 * The object.prototype.watch are supported by the Fiefox but not recommend to use.
 * The Node.js has supported the Object.observe in 0.11.13 but not publish to the standard version yet.
 
+## Benchmarkjs
+You can run the benchmark test in [here][5].Please make sure to use the browser supported to Object.observe feature.
+Benchmark test recommend to expose Java’s nanosecond timer or enable Chrome’s microsecond timer, please [read the documents of benchmarkjs][6] for more information.
+The follow is one test result in our computer:
+
+    Backbone.set#test x 76,170 ops/sec ±11.36% (79 runs sampled)
+    Backbone.observe.set#test x 140,429 ops/sec ±2.66% (74 runs sampled)
+    Backbone.unset#test x 74,966 ops/sec ±1.95% (80 runs sampled)
+    Backbone.observe.set#test x 90,667 ops/sec ±2.77% (75 runs sampled)
+    Fastest is Backbone.observe.set#test
+    Fastest is Backbone.observe.set#test
+
+You can run the `node-benchmark.js` in test directory if you want to run benchmark in node.js.
+
 ## Change Log
+### v1.0.3
+Add benchmarkjs test
+
 ### v1.0.2
 Release the project
 
@@ -96,3 +113,5 @@ Release the project
 [2]: http://blog.carbonfive.com/2013/10/27/the-javascript-event-loop-explained
 [3]: http://javascript.info/tutorial/events-and-timing-depth#javascript-is-single-threaded
 [4]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe
+[5]: http://www.jonecasper.com/Backbone.Observe/test/benchmark.html
+[6]: http://benchmarkjs.com/

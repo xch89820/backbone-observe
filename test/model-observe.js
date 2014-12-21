@@ -367,6 +367,22 @@
         stop();
     });
 
+    test("repeat unset.", function() {
+        var model = new Backbone.Observe.model({a: 1});
+        var usetNumber = 0;
+        model.on('change', function() {
+            start();
+            usetNumber++;
+            
+            notEqual(usetNumber, 2, "Unset trigger twice!!");
+            ok('a' in model.changedAttributes(), 'changedAttributes should contain unset properties');
+            // unset again
+            model.unset('a');
+        });
+        model.unset('a');
+        stop();
+    });
+
     test("set an empty string", 1, function() {
         var model = new Backbone.Observe.model({name : "Model"});
         model.on("change:name", function(){
