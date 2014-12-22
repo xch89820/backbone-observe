@@ -88,10 +88,13 @@ If you not understand the event queue and the non-block I/O, you can see the fol
 * The object.prototype.watch are supported by the Fiefox but not recommend to use.
 * The Node.js has supported the Object.observe in 0.11.13 but not publish to the standard version yet.
 
-## Benchmarkjs
+## Benchmark test
 You can run the benchmark test in [here][5].Please make sure to use the browser supported to Object.observe feature.
 Benchmark test recommend to expose Java’s nanosecond timer or enable Chrome’s microsecond timer, please [read the documents of benchmarkjs][6] for more information.
 The follow is one test result in our computer:
+CPU: Intel Core i7
+RAM: 4GB
+Chrome version: 39.0.2171.95
 
     Backbone.set#test x 76,170 ops/sec ±11.36% (79 runs sampled)
     Backbone.observe.set#test x 140,429 ops/sec ±2.66% (74 runs sampled)
