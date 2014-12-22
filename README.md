@@ -89,8 +89,10 @@ If you not understand the event queue and the non-block I/O, you can see the fol
 * The Node.js has supported the Object.observe in 0.11.13 but not publish to the standard version yet.
 
 ## Benchmark test
-You can run the benchmark test in [here][5].Please make sure to use the browser supported to Object.observe feature.
+You can run the [benchmark][6] test in [here][5].Please make sure to use the browser supported to Object.observe feature.
+
 Benchmark test recommend to expose Java’s nanosecond timer or enable Chrome’s microsecond timer, please [read the documents of benchmarkjs][6] for more information.
+
 The follow is one test result in our computer:
 CPU: Intel Core i7
 RAM: 4GB
