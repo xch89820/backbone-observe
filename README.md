@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/xch89820/backbone-observe.svg?branch=master)](http://travis-ci.org/mochajs/mocha)
 # backbone-observe
 
 ------
