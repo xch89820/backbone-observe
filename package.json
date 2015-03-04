@@ -12,7 +12,9 @@
     "underscore"
   ],
   "devDependencies":[
-    "benchmark"
+    "benchmark",
+    "mocha",
+    "should"
   ],
   "main": "src/backbone-observe.js",
   "keywords": [
@@ -23,5 +25,8 @@
     "node" : ">=0.11.13"
   },
   "author": "Jone Casper",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha test/mocha-test"
+  }
 }
