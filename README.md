@@ -1,4 +1,4 @@
-[![NPM version][npm-version-image]][npm-url] [![MIT License][license-image]][license-url] [![Build Status](https://travis-ci.org/xch89820/backbone-observe.svg?branch=master)](http://travis-ci.org/mochajs/mocha)
+[![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url] [![Build Status](https://travis-ci.org/xch89820/backbone-observe.svg?branch=master)](http://travis-ci.org/mochajs/mocha)
 # backbone-observe
 
 ------
@@ -126,5 +126,5 @@ Release the project
 [license-url]: LICENSE
 
 [npm-url]: https://www.npmjs.com/package/backbone-observe
-[npm-version-image]: http://img.shields.io/npm/v/moment.svg?style=flat
-[npm-downloads-image]: http://img.shields.io/npm/dm/moment.svg?style=flat
+[npm-version-image]: http://img.shields.io/npm/v/backbone-observe.svg?style=flat
+[npm-downloads-image]: http://img.shields.io/npm/dm/backbone-observe.svg?style=flat
