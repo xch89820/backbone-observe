@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/xch89820/backbone-observe.svg?branch=master)](http://travis-ci.org/mochajs/mocha)
+[![NPM version][npm-version-image]][npm-url] [![MIT License][license-image]][license-url] [![Build Status](https://travis-ci.org/xch89820/backbone-observe.svg?branch=master)](http://travis-ci.org/mochajs/mocha)
 # backbone-observe
 
 ------
@@ -121,3 +121,10 @@ Release the project
 [4]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe
 [5]: http://www.jonecasper.com/Backbone.Observe/test/benchmark.html
 [6]: http://benchmarkjs.com/
+
+[license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
+[license-url]: LICENSE
+
+[npm-url]: https://www.npmjs.com/package/backbone-observe
+[npm-version-image]: http://img.shields.io/npm/v/moment.svg?style=flat
+[npm-downloads-image]: http://img.shields.io/npm/dm/moment.svg?style=flat
