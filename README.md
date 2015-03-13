@@ -1,4 +1,4 @@
-[![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url] [![Build Status](https://travis-ci.org/xch89820/backbone-observe.svg?branch=master)](http://travis-ci.org/mochajs/mocha)
+[![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url] [![Build Status](https://travis-ci.org/xch89820/backbone-observe.svg?branch=master)](https://travis-ci.org/xch89820/backbone-observe)
 # backbone-observe
 
 ------
