@@ -110,6 +110,9 @@ Chrome version: 39.0.2171.95
 You can run the `node-benchmark.js` in test directory if you want to run benchmark in node.js.
 
 ## Change Log
+### v1.0.4
+Update Readme
+
 ### v1.0.3
 Add benchmarkjs test
 
