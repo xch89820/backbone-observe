@@ -3,7 +3,7 @@
 
 ------
 
-A Backbone extend which make Backbone support Object.observe feature in browser and nodejs.
+Backbone-observe is a Backbone extension component which make Backbone framework to support Object.observe feature. This component can be used at browser and node-js environment.
 
 ## What is Object.observe
 Object.observe(), part of a future ECMAScript standard, is a method for asynchronously observing changes to JavaScript objects without the need for a separate library. It allows an observer to receive a time-ordered sequence of change records which describe the set of changes which took place to a set of observed objects.
@@ -49,9 +49,11 @@ And then require the package in your code.
         //...code...
     </script>
 
-## What's difference?
-If you use **backbone-observe** to make up your application, every thing are same as the basal model of Backbone except the changing of value is an "asynchronous" processing and the events trigger are not in order to because the Object.observe. It means that you can not expect the value has changed after you invoke the `set` or `unset` function.
-Here is an example:
+## How to use?
+Every thing are same as Backbone documents except the processing of changing value at Backbone.Model is an **asynchronous** procedure. It means that you can not expect the value has changed after you invoke the `set` or `unset` function.
+Other important thing is the `change` events will not triggered in order because the Object.observe feature.
+
+Here is an example: 
 
     var a = new Backbone.Observe.model({id: 'id', foo: 1, bar: 2, baz: 3});
     a.on("change:foo", function(model, val) {
@@ -60,11 +62,10 @@ Here is an example:
     a.set({'foo': 2});
     console.log(a.get('foo')); //1
 
-We print the value of `foo` after set the value immediately and the time that `change` event triggered. As you see, the value not changed after we set it but you can be caught up with the new value at the callback of `change` event.
-The modify functiuon is totally an asynchronous operation via the Object.observe.
+We print the value of `foo` after set the value immediately. As you see, the value not be changed in this time but will come into effect at the callback of `change` event.So, the modify functiuon is totally an asynchronous operation.
 
 In fact, the attributes of model will be observed by your browser and invoke the callback function for a period of time.
-Another example can help us to understand the mechanism of this action.
+Another example can help you to understand the mechanism of this action.
 
     var changed = 0;
     var obj = new Backbone.Observe.model();
